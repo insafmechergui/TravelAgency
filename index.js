@@ -44,19 +44,17 @@ function each(coll, f) {
 $( document ).ready(function() {
 	var $body = $('body');
 	
-	var goingDate = $('<input type="date" name="gdate" id="gdate"><br>');//create an input date
-	var backDate = $('<input type="date" name="bdate" id="bdate"><br>');//create an input date
-	
-	
-	
-	
-	var person = $('<br><select>');//select option of how many person
-	person.append('<option>1</option>').attr('value', '1');
-	person.append('<option>2</option>').attr('value', '2');
-	person.append('<option>3</option>').attr('value', '3');
-	person.append('<option>4</option>').attr('value', '4');
-	person.append('</select>');
-	person.attr('class','person');
+	var selectCountry = $('<input type="text" name ="country" id="counntry">');//search for the  country
+	var departureDate = $('<input type="date" name="ddate" id="departureDate"><br>');//create an input date
+	var arivalDate = $('<input type="date" name="adate" id="arivalDate"><br>');//create an input date
+		
+	var passenger = $('<br><select>');//select option of how many person
+	passenger.append('<option>1</option>');
+	passenger.append('<option>2</option>');
+	passenger.append('<option>3</option>');
+	passenger.append('<option>4</option>');
+	passenger.append('</select>');
+	passenger.attr('class','passenger');
 
 	var category = $('<br><select>');//create option 
 	category.append('<option>Bussiness</option>');
@@ -64,46 +62,82 @@ $( document ).ready(function() {
 	category.append('</select>');
 	category.attr('class','cat');
 
-	var search = $('<br><button></button>').text('Search').attr('id', 'search');
+	var search = $('<br><button></button>').text('Search').attr('id', 'search'); //button search with id search
 	
-	goingDate.appendTo($body);
-	backDate.appendTo($body);
-	person.appendTo($body);
+	selectCountry.appendTo($body);
+	departureDate.appendTo($body);
+	arivalDate.appendTo($body);
+	passenger.appendTo($body);
 	category.appendTo($body);
 	search.appendTo($body);
 
-	function choose(destination, price, date) {
+	function choose(destination, price, depDate, arrDate) {
 		return {
 			destination: destination,
 			price: price,
-			date: date
+			depDate: depDate,
+			arrDate: arrDate
 		}
 	}
-	var flight1 = choose('Tunisia', 215, '2019-04-16');
-	var flight2 = choose('Brazil', 300, '2019-12-08');
-	var flight3 = choose('New York', 700, '2019-01-10');
-	var flight4 = choose('Germany', 500, '2019-05-6');
+	var flight1 = choose('Tunisia', 215, '2020-01-10', '2020-01-30');
+	var flight2 = choose('Tunisia', 150, '2020-04-16', '2020-04-30');
+	var flight3 = choose('Tunisia', 400, '2020-06-15', '2020-06-25');
+	var flight4 = choose('Brazil', 300, '2020-02-08', '2020-02-15');
+	var flight5 = choose('Brazil', 900, '2020-01-01', '2020-01-10');
+	var flight6 = choose('Brazil', 500, '2020-04-15', '2020-04-25');
+	var flight7 = choose('Brazil', 1000, '2020-12-10', '2020-12-20');
+	var flight8 = choose('New York', 700, '2020-01-10', '2020-01-20');
+	var flight9 = choose('Germany', 500, '2020-05-06', '2020-05-18');
 	
 	var flights = [];
-	flights.push(flight1, flight2, flight3, flight4);
-
+	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9);
+	
+	var country = [
+		'Tunisia',
+		'Brazil',
+		'New York',
+		'Germany'
+	];
+	$('#counntry').autocomplete({
+		hints: country
+});
+///search for the country in the array
+	/*$(function(){
+		$('#counntry').autocomplete({
+               source: country
+            });
+		 // on inscrit la liste de suggestions
+		//    minLength : 3 // on indique qu'il faut taper au moins 3 caractères pour afficher l'autocomplétion
+		
+	})*/
+	var selectedCountryy = $('#counntry').val();
+	
 
 	function display() {
-		var destinations = $('.destination :selected').val( );
-		var gdate = $('#gdate').val( );
-		console.log(gdate);
-		var searchDest =  filter(flights, function(flight) {
-			return ((flight.destination === destinations) && (flight.date === gdate));
-		});
-
+		//search destination chosen and the date 
+		var destinations = $('#counntry').val( );//value of the country selected
+		var departureDate = $('#departureDate').val( );//value of the date of the flight
+		var arivalDate = $('#arivalDate').val( );//value of the arrival date of the flight
+		var nbrPassenger = $('.passenger :selected').val();
 		
+
+
+		var searchDest =  filter(flights, function(flight) {
+			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate));
+		});//search for flight with the same destination, departure date and arrival date
 
 		for(var i = 0; i < searchDest.length; i++) {
 				$body.append('<div> Destination : ' + searchDest[0].destination + '</div>');
-				$body.append('<div> Price : ' + searchDest[0].price + '</div>');
-				$body.append('<div> Date : ' + searchDest[0].date + '</div>');
-			
+				if(nbrPassenger > 1){
+					$body.append('<div> Price for one passenger : ' + searchDest[0].price + '<br> Price for all : ' + searchDest[0].price * nbrPassenger + '</div>');
+				}
+				else {
+					$body.append('<div> Price for one passenger : ' + searchDest[0].price + '</div>');
+				}
+				$body.append('<div> Date : ' + searchDest[0].depDate + '</div>');
+				$body.append('<div> Date : ' + searchDest[0].arrDate + '</div>');
 		}
+
 	}
 	$('body').on('click', '#search', display)
 });

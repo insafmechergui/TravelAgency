@@ -44,7 +44,7 @@ function each(coll, f) {
 $( document ).ready(function() {
 	var $body = $('body');
 	
-	var selectCountry = $('<input type="text" name ="country" id="counntry">');//search for the  country
+	var selectCountry = $('<input type="text" name ="country" id="counntry" list="urldata">');//search for the  country
 	var departureDate = $('<input type="date" name="ddate" id="departureDate"><br>');//create an input date
 	var arivalDate = $('<input type="date" name="adate" id="arivalDate"><br>');//create an input date
 		
@@ -87,17 +87,25 @@ $( document ).ready(function() {
 	var flight6 = choose('Brazil', 500, '2020-04-15', '2020-04-25');
 	var flight7 = choose('Brazil', 1000, '2020-12-10', '2020-12-20');
 	var flight8 = choose('New York', 700, '2020-01-10', '2020-01-20');
+	var flight9 = choose('New York', 1000, '2020-05-06', '2020-05-18');
 	var flight9 = choose('Germany', 500, '2020-05-06', '2020-05-18');
+	var flight9 = choose('Germany', 800, '2020-07-16', '2020-08-01');
+	var flight9 = choose('India', 3000, '2020-02-06', '2020-02-18');
+	var flight9 = choose('China', 4000, '2020-03-06', '2020-03-18');
+	var flight9 = choose('China', 3000, '2020-05-06', '2020-05-18');
+	var flight9 = choose('Canada', 800, '2020-01-01', '2020-01-10');
+	var flight9 = choose('Canada', 700, '2020-05-06', '2020-05-18');
+
 	
 	var flights = [];
 	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9);
 	
-	var country = [
+	/*var country = [
 		'Tunisia',
 		'Brazil',
 		'New York',
 		'Germany'
-	];
+	];*/
 	
 ///search for the country in the array
 	/*$(function(){
@@ -123,7 +131,6 @@ $( document ).ready(function() {
 		var searchDest =  filter(flights, function(flight) {
 			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate));
 		});//search for flight with the same destination, departure date and arrival date
-console.log(searchDest)
 		
 		for(var i = 0; i < searchDest.length; i++) {
 			if(searchDest[i] === []){
@@ -145,3 +152,9 @@ console.log(searchDest)
 	$('body').on('click', '#search', display)
 });
 
+
+
+///// search auto complete or option
+///date of departure before date of arrival
+///if(input empty => complete the input)
+////css

@@ -98,9 +98,7 @@ $( document ).ready(function() {
 		'New York',
 		'Germany'
 	];
-	$('#counntry').autocomplete({
-		hints: country
-});
+	
 ///search for the country in the array
 	/*$(function(){
 		$('#counntry').autocomplete({
@@ -125,8 +123,13 @@ $( document ).ready(function() {
 		var searchDest =  filter(flights, function(flight) {
 			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate));
 		});//search for flight with the same destination, departure date and arrival date
-
+console.log(searchDest)
+		
 		for(var i = 0; i < searchDest.length; i++) {
+			if(searchDest[i] === []){
+			alert('please choose another date');
+
+		}
 				$body.append('<div> Destination : ' + searchDest[0].destination + '</div>');
 				if(nbrPassenger > 1){
 					$body.append('<div> Price for one passenger : ' + searchDest[0].price + '<br> Price for all : ' + searchDest[0].price * nbrPassenger + '</div>');
@@ -142,17 +145,3 @@ $( document ).ready(function() {
 	$('body').on('click', '#search', display)
 });
 
-/*
-function search(destination) {
-	var selectElem.addEventListener('change', function() {
-  var index = selectElem.selectedIndex;
-return filter(array, function(element){
-	return element = destination;
-});
-}
-
-function Flight() {
-	var flight = {};
-	flight.destination = 
-
-}*/

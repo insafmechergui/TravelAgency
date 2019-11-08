@@ -1,1 +1,39 @@
-img{background-repeat: no-repeat;}
+body {
+	/*background-color: #003581;*/
+}
+
+main {
+	/*background-image: url(images/1.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+*/
+/*display: flex;
+justify-content: space-between;*/
+	width: 90%;
+	margin:auto;
+}
+
+
+#counntry {
+	padding: 5px;
+	width: 50%;
+}
+
+#departureDate, .passenger {
+	margin-right: 30px;
+}
+
+#departureDate, #arivalDate {
+	margin-top: 50px;
+}
+
+.passenger {
+	width: 4%;
+	padding: 2px;
+}
+
+.passenger, .cat {
+	margin-top: 30px;
+}
+
+#alert {color:red;}

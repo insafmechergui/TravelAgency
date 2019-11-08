@@ -42,13 +42,20 @@ function each(coll, f) {
   
 
 $( document ).ready(function() {
-	var $body = $('body');
+	var $body = $('main');
+	var searchFlight = $('<div></div>');
 	
-	var selectCountry = $('<input type="text" name ="country" id="counntry" list="urldata">');//search for the  country
-	var departureDate = $('<input type="date" name="ddate" id="departureDate"><br>');//create an input date
+	var labelCountry = $('<label for="country">Country : </label>');
+	var selectCountry = $('<input type="text" name ="country" id="counntry" list="urldata" ><br>');//search for the  country
+	
+	var labelDepart = $('<label for="departure">Departure Date : </label>');
+	var departureDate = $('<input type="date" name="ddate" id="departureDate">');//create an input date
+	
+	var labelAriv = $('<label for="arival">Arival Date : </label>');
 	var arivalDate = $('<input type="date" name="adate" id="arivalDate"><br>');//create an input date
 		
-	var passenger = $('<br><select>');//select option of how many person
+	var labelPassenger = $('<label for="passenger">Passenger : </label>');
+	var passenger = $('<select>');//select option of how many person
 	passenger.append('<option>1</option>');
 	passenger.append('<option>2</option>');
 	passenger.append('<option>3</option>');
@@ -56,49 +63,64 @@ $( document ).ready(function() {
 	passenger.append('</select>');
 	passenger.attr('class','passenger');
 
-	var category = $('<br><select>');//create option 
-	category.append('<option>Bussiness</option>');
+	var labelCategory = $('<label for="category">Class : </label>');
+	var category = $('<select>');//create option 
 	category.append('<option>Economic</option>');
+	category.append('<option>Business</option>');
+	category.append('<option>Premium</option>');
 	category.append('</select>');
 	category.attr('class','cat');
 
+	var alert = $('<div></div>');
+	alert.text('Please insert a date after the departure date!')
+	alert.attr('id','alert');
+
+
 	var search = $('<br><button></button>').text('Search').attr('id', 'search'); //button search with id search
 	
-	selectCountry.appendTo($body);
+	labelCountry.appendTo($body);
+	selectCountry.appendTo($body);	
+	labelDepart.appendTo($body);
 	departureDate.appendTo($body);
+	labelAriv.appendTo($body);
 	arivalDate.appendTo($body);
+	labelPassenger.appendTo($body);
 	passenger.appendTo($body);
+	labelCategory.appendTo($body);
 	category.appendTo($body);
 	search.appendTo($body);
+	alert.appendTo($body);
+	searchFlight.appendTo($body);
 
-	function choose(destination, price, depDate, arrDate) {
+	function choose(destination, price, depDate, arrDate, category) {
 		return {
 			destination: destination,
 			price: price,
 			depDate: depDate,
-			arrDate: arrDate
+			arrDate: arrDate,
+			category: category
 		}
 	}
-	var flight1 = choose('Tunisia', 215, '2020-01-10', '2020-01-30');
-	var flight2 = choose('Tunisia', 150, '2020-04-16', '2020-04-30');
-	var flight3 = choose('Tunisia', 400, '2020-06-15', '2020-06-25');
-	var flight4 = choose('Brazil', 300, '2020-02-08', '2020-02-15');
-	var flight5 = choose('Brazil', 900, '2020-01-01', '2020-01-10');
-	var flight6 = choose('Brazil', 500, '2020-04-15', '2020-04-25');
-	var flight7 = choose('Brazil', 1000, '2020-12-10', '2020-12-20');
-	var flight8 = choose('New York', 700, '2020-01-10', '2020-01-20');
-	var flight9 = choose('New York', 1000, '2020-05-06', '2020-05-18');
-	var flight9 = choose('Germany', 500, '2020-05-06', '2020-05-18');
-	var flight9 = choose('Germany', 800, '2020-07-16', '2020-08-01');
-	var flight9 = choose('India', 3000, '2020-02-06', '2020-02-18');
-	var flight9 = choose('China', 4000, '2020-03-06', '2020-03-18');
-	var flight9 = choose('China', 3000, '2020-05-06', '2020-05-18');
-	var flight9 = choose('Canada', 800, '2020-01-01', '2020-01-10');
-	var flight9 = choose('Canada', 700, '2020-05-06', '2020-05-18');
+	var flight1 = choose('Tunisia', 750, '2020-01-10', '2020-01-30', 'Economic');
+	var flight2 = choose('Tunisia', 1500, '2020-04-16', '2020-04-30', 'Premium');
+	var flight3 = choose('Tunisia', 600, '2020-06-15', '2020-06-25', 'Business');
+	var flight4 = choose('Brazil', 300, '2020-02-08', '2020-02-15', 'Economic');
+	var flight5 = choose('Brazil', 900, '2020-01-01', '2020-01-10', 'Business');
+	var flight6 = choose('Brazil', 500, '2020-04-15', '2020-04-25', 'Economic');
+	var flight7 = choose('Brazil', 1000, '2020-12-10', '2020-12-20', 'Premium');
+	var flight8 = choose('New York', 700, '2020-01-10', '2020-01-20', 'Economic');
+	var flight9 = choose('New York', 1000, '2020-05-06', '2020-05-18', 'Premium');
+	var flight10 = choose('Germany', 500, '2020-05-06', '2020-05-18', 'Economic');
+	var flight11 = choose('Germany', 1500, '2020-07-16', '2020-08-01', 'Premium');
+	var flight12 = choose('India', 3000, '2020-02-06', '2020-02-18', 'Business');
+	var flight13 = choose('China', 4000, '2020-03-06', '2020-03-18', 'Premium');
+	var flight14 = choose('China', 3000, '2020-05-06', '2020-05-18', 'Business');
+	var flight15 = choose('Canada', 1000, '2020-01-01', '2020-01-10', 'Business');
+	var flight16 = choose('Canada', 700, '2020-05-06', '2020-05-18', 'Economic');
 
 	
 	var flights = [];
-	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9);
+	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9, flight10, flight11, flight12, flight13, flight14, flight15, flight16);
 	
 	/*var country = [
 		'Tunisia',
@@ -117,35 +139,46 @@ $( document ).ready(function() {
 		
 	})*/
 	var selectedCountryy = $('#counntry').val();
-	
+		alert.hide();
 
+		
 	function display() {
-		//search destination chosen and the date 
+		//search destination , date of departure and arrival 
+
 		var destinations = $('#counntry').val( );//value of the country selected
 		var departureDate = $('#departureDate').val( );//value of the date of the flight
 		var arivalDate = $('#arivalDate').val( );//value of the arrival date of the flight
 		var nbrPassenger = $('.passenger :selected').val();
-		
 
+		//alert msg for the date
+			if(departureDate > arivalDate) {
+				setTimeout(function() {
+					alert.fadeIn(1000)
+				},0)
+			}
+			else {
+				setTimeout(function() {
+					alert.fadeOut(1000)
+				},0)
+			}
 
 		var searchDest =  filter(flights, function(flight) {
 			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate));
 		});//search for flight with the same destination, departure date and arrival date
 		
 		for(var i = 0; i < searchDest.length; i++) {
-			if(searchDest[i] === []){
-			alert('please choose another date');
-
-		}
-				$body.append('<div> Destination : ' + searchDest[0].destination + '</div>');
+			if(searchDest[0] === []) {
+				console.log('doesnt')
+			}
+				searchFlight.append('<div> Destination : ' + searchDest[0].destination + '</div>');
 				if(nbrPassenger > 1){
-					$body.append('<div> Price for one passenger : ' + searchDest[0].price + '<br> Price for all : ' + searchDest[0].price * nbrPassenger + '</div>');
+					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT <br> Price for all : ' + searchDest[0].price * nbrPassenger + 'DT </div>');
 				}
 				else {
-					$body.append('<div> Price for one passenger : ' + searchDest[0].price + '</div>');
+					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT</div>');
 				}
-				$body.append('<div> Date : ' + searchDest[0].depDate + '</div>');
-				$body.append('<div> Date : ' + searchDest[0].arrDate + '</div>');
+				searchFlight.append('<div> Departure Date : ' + searchDest[0].depDate + '</div>');
+				searchFlight.append('<div> Arival Date : ' + searchDest[0].arrDate + '</div>');
 		}
 
 	}
@@ -154,7 +187,7 @@ $( document ).ready(function() {
 
 
 
-///// search auto complete or option
+///// search auto complete or option /\
 ///date of departure before date of arrival
 ///if(input empty => complete the input)
 ////css

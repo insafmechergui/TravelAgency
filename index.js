@@ -50,13 +50,13 @@ $( document ).ready(function() {
 	var searchFlight = $('<div></div>');
 	searchFlight.attr('id','resultSearch');
 	
-	var labelCountry = $('<label for="country">Country : </label>');
+	var labelCountry = $('<label for="country"><i class="fas fa-globe-americas"></i> Country : </label>');
 	var selectCountry = $('<input type="text" name ="country" id="counntry" list="urldata" placeholder="Shoose a country"><br>');//search for the  country
 	
-	var labelDepart = $('<label for="departure">Departure Date : </label>');
+	var labelDepart = $('<label for="departure"><i class="fas fa-plane-arrival"></i> Departure Date : </label>');
 	var departureDate = $('<input type="date" name="ddate" id="departureDate">');//create an input date
 	
-	var labelAriv = $('<label for="arival">Arival Date : </label>');
+	var labelAriv = $('<label for="arival"><i class="fas fa-plane-arrival"></i> Arival Date : </label>');
 	var arivalDate = $('<input type="date" name="adate" id="arivalDate"><br>');//create an input date
 		
 	var labelPassenger = $('<label for="passenger">Passenger : </label>');
@@ -97,7 +97,7 @@ $( document ).ready(function() {
 	search.appendTo(inputFlight);
 
 	alert.appendTo(searchFlight);
-	buy.appendTo(searchFlight);
+	/*buy.appendTo(searchFlight);*/
 	searchFlight.appendTo($body);
 
 	function choose(destination, price, depDate, arrDate, category) {
@@ -110,6 +110,8 @@ $( document ).ready(function() {
 		}
 	}
 	var flight1 = choose('Tunisia', 750, '2020-01-10', '2020-01-30', 'Economic');
+	var flight1 = choose('Tunisia', 900, '2020-01-10', '2020-01-30', 'Economic');
+	var flight17 = choose('Tunisia', 3000, '2020-01-10', '2020-01-30', 'Premium');
 	var flight2 = choose('Tunisia', 1500, '2020-04-16', '2020-04-30', 'Premium');
 	var flight3 = choose('Tunisia', 600, '2020-06-15', '2020-06-25', 'Business');
 	var flight4 = choose('Brazil', 300, '2020-02-08', '2020-02-15', 'Economic');
@@ -128,12 +130,12 @@ $( document ).ready(function() {
 
 	
 	var flights = [];
-	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9, flight10, flight11, flight12, flight13, flight14, flight15, flight16);
+	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9, flight10, flight11, flight17, flight12, flight13, flight14, flight15, flight16);
 	
 	///search for the country in the array
 
 	var selectedCountryy = $('#counntry').val();
-	buy.hide();
+	
 	
 	function display() {
 		searchFlight.css('background-color', 'white');
@@ -156,26 +158,35 @@ $( document ).ready(function() {
 			var searchDest =  filter(flights, function(flight) {
 				return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate) && (flight.category === classCategory));
 			});//search for flight with the same destination, departure date and arrival date
-			
+			//display the search of the flight
+							console.log(searchDest)
+
 			for(var i = 0; i < searchDest.length; i++) {
+				console.log(searchDest)
+				console.log(i)
 				searchFlight.html('');
-				searchFlight.append('<div> Destination : ' + searchDest[0].destination + '</div>');
+
+				searchFlight.append('<div><i class="fas fa-globe-americas"></i> Destination : ' + searchDest[i].destination);
 
 				if(nbrPassenger > 1){
-					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT <br> Price for all : ' + searchDest[0].price * nbrPassenger + 'DT </div>');
+					searchFlight.append('<i class="fas fa-money-bill-wave-alt"></i> Price for one passenger : ' + searchDest[i].price + 'DT <br> Price for ' + nbrPassenger + ' passengers: ' + searchDest[0].price * nbrPassenger + 'DT </div>');
 				}
 				else {
-					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT</div>');
+					searchFlight.append('<i class="fas fa-money-bill-wave-alt"></i> Price for one passenger : ' + searchDest[i].price + 'DT</div>');
 				}
 				
-				searchFlight.append('<div> Departure Date : ' + searchDest[0].depDate + '</div>');
-				searchFlight.append('<div> Arival Date : ' + searchDest[0].arrDate + '</div>');
-				searchFlight.append('<div> Class category : ' + searchDest[0].category + '</div>');
+				searchFlight.append('<div><i class="fas fa-plane-departure"></i> Departure Date : ' + searchDest[i].depDate + '</div>');
+				searchFlight.append('<div><i class="fas fa-plane-arrival"></i> Arival Date : ' + searchDest[i].arrDate + '</div>');
+				searchFlight.append('<div> Class category : ' + searchDest[i].category + '</div>');
 			}
-			buy.show();
+			buy.appendTo(searchFlight);
 		}
 	}
-	$('body').on('click', '#search', display)
+	$('body').on('click', '#search', display);
+
+	$('body').on('click', '#buy', function() {
+		alert('you just payed for the flight tickets !');
+	});
 });
 
 

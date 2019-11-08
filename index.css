@@ -68,4 +68,37 @@ input, select, button {
 button{
 	border-color: transparent;
 }
+
+#buy {
+	float: right;
+	width: 20%;
+}
+
+/*i*/
+.fas {
+	color: #003581;
+}
+
+.contact {
+	color: white;
+}
+/**/
+footer  {
+	width: 70%;
+	margin: auto;
+	text-align: center;
+}
+
+footer h3 {
+	margin: 50px;
+}
+
+footer div {
+	display: flex;
+	justify-content: space-between;
+}
+footer div a {
+	text-decoration: none;
+	color: white;
+}
 }

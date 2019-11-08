@@ -1,20 +1,34 @@
 body {
-	/*background-color: #003581;*/
+	background-color: #003581;
 }
 
-main {
-	/*background-image: url(images/1.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-*/
-/*display: flex;
-justify-content: space-between;*/
-	width: 90%;
+#inputSearch {
+	background-color:white;	
+	width: 80%;
 	margin:auto;
+	height: 300px;
+	padding: 10px;
+	border-radius: 20px;
+	box-shadow: 15px 20px 15px 20px ;
 }
 
+#resultSearch {
+	width: 80%;
+	margin:auto;
+	margin-top: 100px;
+	height: 200px;
+	padding: 10px;
+	border-radius: 20px;
+/*	box-shadow: -12px -25px 33px 1px  #FEDFC3;
+*/	/*box-shadow: 15px 20px 15px 20px  #FEDFC3;*/
+/*	background-image: url(images/4.jpg);
+*/
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
 
-#counntry {
+#counntry, #urldata {
 	padding: 5px;
 	width: 50%;
 }
@@ -25,10 +39,11 @@ justify-content: space-between;*/
 
 #departureDate, #arivalDate {
 	margin-top: 50px;
+	width: 20%;
 }
 
 .passenger {
-	width: 4%;
+	width: 5%;
 	padding: 2px;
 }
 
@@ -36,4 +51,17 @@ justify-content: space-between;*/
 	margin-top: 30px;
 }
 
-#alert {color:red;}
+#alert {
+	color:red;
+}
+
+#search {
+	padding: 5px;
+	width: 10%;
+	margin-top: 30px;
+	float: right;
+}
+
+input, select, button {
+	border-radius: 10px;
+}

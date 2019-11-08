@@ -43,10 +43,14 @@ function each(coll, f) {
 
 $( document ).ready(function() {
 	var $body = $('main');
+	var inputFlight = $('<div></div>');
+	inputFlight.attr('id','inputSearch');
+
 	var searchFlight = $('<div></div>');
+	searchFlight.attr('id','resultSearch');
 	
 	var labelCountry = $('<label for="country">Country : </label>');
-	var selectCountry = $('<input type="text" name ="country" id="counntry" list="urldata" ><br>');//search for the  country
+	var selectCountry = $('<input type="text" name ="country" id="counntry" list="urldata" placeholder="Shoose a country"><br>');//search for the  country
 	
 	var labelDepart = $('<label for="departure">Departure Date : </label>');
 	var departureDate = $('<input type="date" name="ddate" id="departureDate">');//create an input date
@@ -72,25 +76,28 @@ $( document ).ready(function() {
 	category.attr('class','cat');
 
 	var alert = $('<div></div>');
-	alert.text('Please insert a date after the departure date!')
 	alert.attr('id','alert');
 
 
 	var search = $('<br><button></button>').text('Search').attr('id', 'search'); //button search with id search
+	var buy = $('<br><button></button>').text('Buy').attr('id', 'buy'); //button buy 
 	
-	labelCountry.appendTo($body);
-	selectCountry.appendTo($body);	
-	labelDepart.appendTo($body);
-	departureDate.appendTo($body);
-	labelAriv.appendTo($body);
-	arivalDate.appendTo($body);
-	labelPassenger.appendTo($body);
-	passenger.appendTo($body);
-	labelCategory.appendTo($body);
-	category.appendTo($body);
-	search.appendTo($body);
+	inputFlight.appendTo($body);
+	labelCountry.appendTo(inputFlight);
+	selectCountry.appendTo(inputFlight);	
+	labelDepart.appendTo(inputFlight);
+	departureDate.appendTo(inputFlight);
+	labelAriv.appendTo(inputFlight);
+	arivalDate.appendTo(inputFlight);
+	labelPassenger.appendTo(inputFlight);
+	passenger.appendTo(inputFlight);
+	labelCategory.appendTo(inputFlight);
+	category.appendTo(inputFlight);
+	search.appendTo(inputFlight);
 	alert.appendTo($body);
+
 	searchFlight.appendTo($body);
+	buy.appendTo(searchFlight);
 
 	function choose(destination, price, depDate, arrDate, category) {
 		return {
@@ -122,65 +129,46 @@ $( document ).ready(function() {
 	var flights = [];
 	flights.push(flight1, flight2, flight3, flight4, flight5, flight6, flight7, flight8, flight9, flight10, flight11, flight12, flight13, flight14, flight15, flight16);
 	
-	/*var country = [
-		'Tunisia',
-		'Brazil',
-		'New York',
-		'Germany'
-	];*/
-	
-///search for the country in the array
-	/*$(function(){
-		$('#counntry').autocomplete({
-               source: country
-            });
-		 // on inscrit la liste de suggestions
-		//    minLength : 3 // on indique qu'il faut taper au moins 3 caractères pour afficher l'autocomplétion
-		
-	})*/
+	///search for the country in the array
+
 	var selectedCountryy = $('#counntry').val();
-		alert.hide();
-
-		
+	buy.hide();
+	
 	function display() {
+		searchFlight.css('background-color', 'white');
+		alert.html('');
 		//search destination , date of departure and arrival 
-
 		var destinations = $('#counntry').val( );//value of the country selected
 		var departureDate = $('#departureDate').val( );//value of the date of the flight
 		var arivalDate = $('#arivalDate').val( );//value of the arrival date of the flight
 		var nbrPassenger = $('.passenger :selected').val();
+		var classCategory = $('.cat :selected').val();
+		
+		//alert if departure date is < arrival date
+		if(departureDate > arivalDate) {
+			alert.append("Please insert a date after the departure date");
 
-		//alert msg for the date
-			if(departureDate > arivalDate) {
-				setTimeout(function() {
-					alert.fadeIn(1000)
-				},0)
-			}
-			else {
-				setTimeout(function() {
-					alert.fadeOut(1000)
-				},0)
-			}
+		}
 
 		var searchDest =  filter(flights, function(flight) {
-			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate));
+			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate) && (flight.category === classCategory));
 		});//search for flight with the same destination, departure date and arrival date
 		
 		for(var i = 0; i < searchDest.length; i++) {
-			if(searchDest[0] === []) {
-				console.log('doesnt')
-			}
-				searchFlight.append('<div> Destination : ' + searchDest[0].destination + '</div>');
-				if(nbrPassenger > 1){
-					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT <br> Price for all : ' + searchDest[0].price * nbrPassenger + 'DT </div>');
-				}
-				else {
-					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT</div>');
-				}
-				searchFlight.append('<div> Departure Date : ' + searchDest[0].depDate + '</div>');
-				searchFlight.append('<div> Arival Date : ' + searchDest[0].arrDate + '</div>');
-		}
+			searchFlight.append('<div> Destination : ' + searchDest[0].destination + '</div>');
 
+			if(nbrPassenger > 1){
+				searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT <br> Price for all : ' + searchDest[0].price * nbrPassenger + 'DT </div>');
+			}
+			else {
+				searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT</div>');
+			}
+			
+			searchFlight.append('<div> Departure Date : ' + searchDest[0].depDate + '</div>');
+			searchFlight.append('<div> Arival Date : ' + searchDest[0].arrDate + '</div>');
+			searchFlight.append('<div> Class category : ' + searchDest[0].category + '</div>');
+		}
+		buy.show();
 	}
 	$('body').on('click', '#search', display)
 });
@@ -188,6 +176,7 @@ $( document ).ready(function() {
 
 
 ///// search auto complete or option /\
-///date of departure before date of arrival
+///date of departure before date of arrival /\
 ///if(input empty => complete the input)
 ////css
+//placeholder

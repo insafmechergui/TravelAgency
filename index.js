@@ -42,6 +42,7 @@ function each(coll, f) {
   
 
 $( document ).ready(function() {
+
 	var $body = $('main');
 	var inputFlight = $('<div></div>');
 	inputFlight.attr('id','inputSearch');
@@ -94,10 +95,10 @@ $( document ).ready(function() {
 	labelCategory.appendTo(inputFlight);
 	category.appendTo(inputFlight);
 	search.appendTo(inputFlight);
-	alert.appendTo($body);
 
-	searchFlight.appendTo($body);
+	alert.appendTo(searchFlight);
 	buy.appendTo(searchFlight);
+	searchFlight.appendTo($body);
 
 	function choose(destination, price, depDate, arrDate, category) {
 		return {
@@ -144,31 +145,35 @@ $( document ).ready(function() {
 		var nbrPassenger = $('.passenger :selected').val();
 		var classCategory = $('.cat :selected').val();
 		
-		//alert if departure date is < arrival date
-		if(departureDate > arivalDate) {
-			alert.append("Please insert a date after the departure date");
-
-		}
-
-		var searchDest =  filter(flights, function(flight) {
-			return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate) && (flight.category === classCategory));
-		});//search for flight with the same destination, departure date and arrival date
-		
-		for(var i = 0; i < searchDest.length; i++) {
-			searchFlight.append('<div> Destination : ' + searchDest[0].destination + '</div>');
-
-			if(nbrPassenger > 1){
-				searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT <br> Price for all : ' + searchDest[0].price * nbrPassenger + 'DT </div>');
+		if(destinations === '' || departureDate === '' || arivalDate === ''){
+			alert.append('Please fill all the text field')
+		} else{
+			//alert if departure date is < arrival date
+			if(departureDate > arivalDate) {
+				alert.append("Please insert a date after the departure date");
 			}
-			else {
-				searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT</div>');
-			}
+
+			var searchDest =  filter(flights, function(flight) {
+				return ((flight.destination === destinations) && (flight.depDate === departureDate) && (flight.arrDate === arivalDate) && (flight.category === classCategory));
+			});//search for flight with the same destination, departure date and arrival date
 			
-			searchFlight.append('<div> Departure Date : ' + searchDest[0].depDate + '</div>');
-			searchFlight.append('<div> Arival Date : ' + searchDest[0].arrDate + '</div>');
-			searchFlight.append('<div> Class category : ' + searchDest[0].category + '</div>');
+			for(var i = 0; i < searchDest.length; i++) {
+				searchFlight.html('');
+				searchFlight.append('<div> Destination : ' + searchDest[0].destination + '</div>');
+
+				if(nbrPassenger > 1){
+					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT <br> Price for all : ' + searchDest[0].price * nbrPassenger + 'DT </div>');
+				}
+				else {
+					searchFlight.append('<div> Price for one passenger : ' + searchDest[0].price + 'DT</div>');
+				}
+				
+				searchFlight.append('<div> Departure Date : ' + searchDest[0].depDate + '</div>');
+				searchFlight.append('<div> Arival Date : ' + searchDest[0].arrDate + '</div>');
+				searchFlight.append('<div> Class category : ' + searchDest[0].category + '</div>');
+			}
+			buy.show();
 		}
-		buy.show();
 	}
 	$('body').on('click', '#search', display)
 });

@@ -1,7 +1,13 @@
 body {
 	background-color: #003581;
 }
-
+header {
+	background-image: url('images/5.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 200px;
+	width: 0%;
+}
 #inputSearch {
 	background-color:white;	
 	width: 80%;
@@ -9,7 +15,7 @@ body {
 	height: 300px;
 	padding: 10px;
 	border-radius: 20px;
-	box-shadow: 15px 20px 15px 20px ;
+	box-shadow: 15px 20px 15px 20px #345685;
 }
 
 #resultSearch {
@@ -19,13 +25,6 @@ body {
 	height: 200px;
 	padding: 10px;
 	border-radius: 20px;
-/*	box-shadow: -12px -25px 33px 1px  #FEDFC3;
-*/	/*box-shadow: 15px 20px 15px 20px  #FEDFC3;*/
-/*	background-image: url(images/4.jpg);
-*/
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
 }
 
 #counntry, #urldata {
@@ -64,4 +63,9 @@ body {
 
 input, select, button {
 	border-radius: 10px;
+}
+
+button{
+	border-color: transparent;
+}
 }

@@ -83,14 +83,14 @@ $( document ).ready(function() {
 	category.append('</select>');
 	category.attr('class','cat');
 	
-	var contact = $('ul').append('<li><a href="#contact" class="contact">Contact Us</a></li>');
+	var contact = $('.contact');
 
 //div for the alert
 	var alert = $('<div></div>');
 	alert.attr('id','alert');
 
 	var search = $('<br><button></button>').text('View offers').attr('id', 'search'); //button search with id search
-	var buy = $('<br><a href="#popup1"></a>').text('Buy').attr('id', 'buy'); //button buy 
+	var buy = $('<br><a id="1" class="buy" href="#popup1"></a>').text('Buy'); //button buy 
 	
 	var name = $('#client');
 
@@ -155,6 +155,7 @@ $( document ).ready(function() {
 	var selectedCountryy = $('#counntry').val();
 
 
+
 	function display() {
 
 		searchFlight.css('background-color', 'white');
@@ -180,11 +181,9 @@ $( document ).ready(function() {
 			});
 			//search for flight with the same destination, departure date and arrival date
 			//display the search of the flight
-				console.log(searchDest)
 
 			for(var i = 0; i < searchDest.length; i++) {
-				console.log(searchDest)
-				console.log(i)
+				
 				/*searchFlight.html('');*/
 				
 				searchFlight.append('<div><i class="fas fa-globe-americas"></i> Destination : ' + searchDest[i].departure);
@@ -202,31 +201,32 @@ $( document ).ready(function() {
 				searchFlight.append('<div> Class category : ' + searchDest[i].category + '</div><hr>');
 
 				buy.appendTo(searchFlight);
+
+			
+
+
 				//popup
-				var popUp = $('.content').append('<div> Destination : ' + searchDest[i].departure + '</div>');
-				popUp.append('<div>Name : ' + name.val() + '</div>');
-				popUp.append('<table><tr>');
-				popUp.append('<th><td>Departure Date : </td>');
-				popUp.append('<td>Arrival Date : </td>');
-				popUp.append('<td>Depart : </td>');
-				popUp.append('<td>Arrive : </td>');
-				popUp.append('<td>Price : </td></th>');
-				popUp.append('</tr><hr><tr>');
-				popUp.append('<td>' + searchDest[i].depDate + '</td>');
-				popUp.append('<td>' + searchDest[i].arrDate + '</td>');
-				popUp.append('<td>' + searchDest[i].departure + '</td>');
-				popUp.append('<td>' + searchDest[i].arrival + '</td>');
-				popUp.append('<td>' + searchDest[i].price * nbrPassenger + 'DT </td>');
-				popUp.append('</tr></table>');
-
-
-
+				if(i === 1){
+					var popUp = $('.content').append('<div class="popContent"> Departure : <br>' + searchDest[i].departure + ' </div>');
+				popUp.append('<div class="popContent">Arrival : <br>' + searchDest[i].arrival + ' </div>');
+				popUp.append('<div class="popContent">Depart Date : <br>' + searchDest[i].depDate + '</div>');
+				popUp.append('<div class="popContent">Arrival Date : <br>' + searchDest[i].arrDate + ' </div>');
+				popUp.append('<div class="popContent">Price : <br>' + searchDest[i].price * nbrPassenger + 'DT <br> </div>');
+				
+				popUp.append('<div>Name : <br>' + name.val() + ' </div> <br>');
+				popUp.css('display', 'flex');
+				}
+				
+				
 			}			
 		}
+
 	}
 
 
 	$('body').on('click', '#search', display);
+	
+
 
 	
 

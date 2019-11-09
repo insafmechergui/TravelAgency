@@ -1,26 +1,41 @@
 body {
 	background-color: #003581;
 }
-header {
 
-	height: 250px;
-	width: 100%;
-}
+
 
 ul {
   list-style-type: none;
 }
 
-
-
 #client {
 	margin-bottom: 20px;
 	float:right;
 }
-#imageHeader img {
+.navigation_diapo{
 	
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	
+	}
+
+.navigation_diapo img{
+
+border: 3px solid white;
+box-shadow:0 0 5px hsla(0,0%,0%,.4);
+
+	
+	}
+	
+header {
+	height:250px;
+}
+
+img{
 	width: 200px;
-	height: 200px;
+	height:200px;
 }
 
 #inputSearch {
@@ -45,6 +60,9 @@ ul {
 #counntry, #urldata, #counntryArr {
 	padding: 5px;
 	width: 50%;
+}
+#counntry {
+	margin-top:20px;
 }
 
 #departureDate, .passenger {
@@ -83,11 +101,12 @@ input, select, button {
 button{
 	border-color: transparent;
 }
+
 hr{
 	width:50%;
 	margin-left:0;
 }
-#buy {
+.buy {
 	float: right;
 	width: 20%;
 }
@@ -128,10 +147,6 @@ footer div  {
 	color: white!important;
 }
 
-table td{
-	border: 2px solid;
-	display: flex
-}
 /*popup*/
 .overlay {
   position: fixed;
@@ -144,6 +159,7 @@ table td{
   visibility: hidden;
   opacity: 0;
 }
+
 .overlay:target {
   visibility: visible;
   opacity: 1;
@@ -159,11 +175,16 @@ table td{
   transition: all 5s ease-in-out;
 }
 
+.popContent {
+	margin-right: 30px;
+	margin
+}
 .popup h2 {
   margin-top: 0;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
 }
+
 .popup .close {
   position: absolute;
   top: 20px;
@@ -174,9 +195,11 @@ table td{
   text-decoration: none;
   color: #333;
 }
+
 .popup .close:hover {
   color: #06D85F;
 }
+
 .popup .content {
   max-height: 30%;
   overflow: auto;

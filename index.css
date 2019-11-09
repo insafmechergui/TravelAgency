@@ -2,17 +2,32 @@ body {
 	background-color: #003581;
 }
 header {
-	background-image: url('images/5.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	height: 200px;
-	width: 0%;
+
+	height: 250px;
+	width: 100%;
 }
+
+ul {
+  list-style-type: none;
+}
+
+
+
+#client {
+	margin-bottom: 20px;
+	float:right;
+}
+#imageHeader img {
+	
+	width: 200px;
+	height: 200px;
+}
+
 #inputSearch {
 	background-color:white;	
 	width: 80%;
 	margin:auto;
-	height: 300px;
+	height: 350px;
 	padding: 10px;
 	border-radius: 20px;
 	box-shadow: 15px 20px 15px 20px #345685;
@@ -22,12 +37,12 @@ header {
 	width: 80%;
 	margin:auto;
 	margin-top: 100px;
-	height: 200px;
+	min-height: 300px;
 	padding: 10px;
 	border-radius: 20px;
 }
 
-#counntry, #urldata {
+#counntry, #urldata, #counntryArr {
 	padding: 5px;
 	width: 50%;
 }
@@ -68,7 +83,10 @@ input, select, button {
 button{
 	border-color: transparent;
 }
-
+hr{
+	width:50%;
+	margin-left:0;
+}
 #buy {
 	float: right;
 	width: 20%;
@@ -80,6 +98,10 @@ button{
 }
 
 .contact {
+	color: blue;
+}
+
+.contat {
 	color: white;
 }
 /**/
@@ -102,11 +124,15 @@ a{
 	text-decoration: none;
 }
 
-footer div a {
-	color: white;
+footer div  {
+	color: white!important;
 }
 
-
+table td{
+	border: 2px solid;
+	display: flex
+}
+/*popup*/
 .overlay {
   position: fixed;
   top: 0;
@@ -128,7 +154,7 @@ footer div a {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 70%;
   position: relative;
   transition: all 5s ease-in-out;
 }
